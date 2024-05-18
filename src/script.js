@@ -61,7 +61,9 @@ const material = new THREE.ShaderMaterial({
         uTime: new THREE.Uniform(0),
     },
     transparent: true,
-    depthWrite: false
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    side: THREE.DoubleSide
 })
 
 const torusKnot = new THREE.Mesh(
