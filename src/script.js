@@ -59,7 +59,9 @@ const material = new THREE.ShaderMaterial({
     fragmentShader: holoFragmentShader,
     uniforms: {
         uTime: new THREE.Uniform(0),
-    }
+    },
+    transparent: true,
+    depthWrite: false
 })
 
 const torusKnot = new THREE.Mesh(
