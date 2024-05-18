@@ -16,8 +16,11 @@ void main() {
     float fresnel = dot(viewDirection, normal) + 1.0;
     fresnel = pow(fresnel, 2.0);
 
+    float falloff = smoothstep(0.8, 0.0, fresnel);
+
     float holo = stripes * fresnel;
     holo += fresnel * 1.25;
+    holo *= falloff;
 
     gl_FragColor = vec4(1.0, 1.0, 1.0, holo);
     #include <tonemapping_fragment>
