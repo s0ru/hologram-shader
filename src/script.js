@@ -2,6 +2,8 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import GUI from 'lil-gui'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+import holoVertexShader from './shaders/holo/vertex.glsl'
+import holoFragmentShader from './shaders/holo/fragment.glsl'
 
 // Debug
 const gui = new GUI()
@@ -52,7 +54,13 @@ gui
     })
 
 
-const material = new THREE.MeshBasicMaterial()
+const material = new THREE.ShaderMaterial({
+    vertexShader: holoVertexShader,
+    fragmentShader: holoFragmentShader,
+    uniforms: {
+        uTime: new THREE.Uniform(0),
+    }
+})
 
 const torusKnot = new THREE.Mesh(
     new THREE.TorusKnotGeometry(0.6, 0.25, 128, 32),
@@ -88,6 +96,7 @@ const clock = new THREE.Clock()
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
+    material.uniforms.uTime.value = elapsedTime;
 
     if(suzanne)
     {
