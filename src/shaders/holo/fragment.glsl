@@ -1,10 +1,11 @@
 uniform float uTime;
+uniform vec3 uColor;
 
 varying vec3 vPosition;
 varying vec3 vNormal;
 
 void main() {
-    float stripes = mod((vPosition.y - uTime * 0.0) * 20.0, 1.0);
+    float stripes = mod((vPosition.y - uTime * 0.02) * 20.0, 1.0);
     stripes = pow(stripes, 3.0);
 
     vec3 viewDirection = normalize(vPosition - cameraPosition);
@@ -22,7 +23,7 @@ void main() {
     holo += fresnel * 1.25;
     holo *= falloff;
 
-    gl_FragColor = vec4(1.0, 1.0, 1.0, holo);
+    gl_FragColor = vec4(uColor, holo);
     #include <tonemapping_fragment>
     #include <colorspace_fragment>
 }
